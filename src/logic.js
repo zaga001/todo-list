@@ -1,4 +1,4 @@
-export const projects = [
+export let projects = [
     { name: 'default', todos: [] }
 ];
 
@@ -18,6 +18,24 @@ export function createProject(projectName) {
         projects.push({ name: projectName, todos: [] });
         saveToLocalStorage();
     }
+}
+
+export function deleteProject(projectName) {
+    if (projectName === 'default') {
+        console.error('Cannot delete default project');
+        return false;
+    }
+    
+    const projectIndex = projects.findIndex(p => p.name === projectName);
+    
+    if (projectIndex === -1) {
+        console.error('Project not found');
+        return false;
+    }
+    
+    projects.splice(projectIndex, 1);
+    saveToLocalStorage();
+    return true;
 }
 
 export function createTodo(title, description, dueDate, priority, projectName = 'default') {

@@ -1,4 +1,4 @@
-import { projects, createTodo, completeTodo, createProject, deleteTodo, loadFromLocalStorage } from "./logic";
+import { projects, createTodo, completeTodo, createProject, deleteTodo, deleteProject, loadFromLocalStorage } from "./logic";
 
 export function dom() {
     loadFromLocalStorage();
@@ -39,25 +39,35 @@ export function dom() {
 
     function renderProjects() {
         const sideElement = document.querySelector('.side');
-        const projectButtons = Array.from(sideElement.querySelectorAll('button[data-project]'));
-        projectButtons.forEach(button => {
-            const br = button.nextElementSibling;
-            if (br) br.remove();
-            button.remove();
-        });
+        sideElement.innerHTML = `
+            <h2>Projects</h2>
+            <button type="button" id="project-btn">Add Projects</button><br>
+            <button type="button" id="all-projects">All Projects</button><br>
+        `;
         
         const projectSelect = document.querySelector('#project');
         projectSelect.innerHTML = '';
         
         projects.forEach(project => {
-            sideElement.innerHTML += `
-            <button type="button" data-project="${project.name}">${project.name}</button><br>`;
+            if (project.name === 'default') {
+                sideElement.innerHTML += `
+                <div class="project-container">
+                    <button type="button" data-project="${project.name}">${project.name}</button>
+                </div><br>`;
+            } else {
+                sideElement.innerHTML += `
+                <div class="project-container">
+                    <button type="button" data-project="${project.name}">${project.name}</button>
+                    <button type="button" class="delete-project" data-project="${project.name}">×</button>
+                </div><br>`;
+            }
             
             projectSelect.innerHTML += `
             <option value="${project.name}">${project.name}</option>`;
         });
         
         addProjectFilterListeners();
+        addDeleteProjectListeners();
     }
     
     function renderTodos() {
@@ -148,6 +158,25 @@ export function dom() {
                     hrElement.remove();
                 }
                 todoElement.remove();
+            });
+        });
+    }
+    
+    function addDeleteProjectListeners() {
+        document.querySelectorAll('.delete-project').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                
+                if (confirm('Are you sure you want to delete this project and all its tasks?')) {
+                    const projectName = button.getAttribute('data-project');
+                    
+                    if (deleteProject(projectName)) {
+                        renderProjects();
+                        renderTodos();
+                        
+                        document.getElementById('all-projects').click();
+                    }
+                }
             });
         });
     }
