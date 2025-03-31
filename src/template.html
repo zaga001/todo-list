@@ -3,9 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo List</title>
 </head>
 <body>
-    
+    <div class="spacer"></div>
+    <div class="content">
+        <h1>Todo List</h1>
+            <button type="button" id="task">Add Tasks</button>
+        <div class="rows">
+        </div>
+    </div>
+    <div class="side">
+        <h2>Projects</h2>
+        <button type="button" id="project-btn">Add Projects</button><br>
+        <button type="button" id="all-projects">All Projects</button><br>
+        <button type="button" data-project="default">default</button><br>
+    </div>
+    <dialog id="dialog">
+        <form autocomplete="off" id="task-form">
+            <input type="text" id="task-name" placeholder="Task name" required><br>
+            <input type="text" id="description" placeholder="Description"><br>
+            <input type="date" id="date">
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <label for="project">Project:</label>
+            <select id="project" name="project">
+                <option value="default">default</option>
+            </select><br>
+            <button type="button" id="cancel">Cancel</button>
+            <button type="submit" id="add-task">Add task</button>
+        </form>
+    </dialog>
+    <dialog id="task-info">
+    </dialog>
+    <dialog id="project-dialog">
+        <form autocomplete="off" id="project-form">
+            <label for="project-name">Name</label><br>
+            <input type="text" id="project-name" name="project-name" required><br>
+            <button type="button" id="project-cancel">Cancel</button>
+            <button type="submit" id="add-project">Add</button>
+        </form>
+    </dialog>
 </body>
 </html>

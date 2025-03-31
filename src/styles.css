@@ -1,0 +1,56 @@
+.todo {
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.todo button {
+    align-self: center;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.content {
+    width: 80%;
+}
+
+.side {
+    width: 20%;
+}
+
+#task-btn {
+    margin-bottom: 20px;
+}
+
+.spacer {
+    width: 20%;
+}
+
+input {
+    margin-bottom: 5px;
+}
+
+.medium-priority {
+    background-color: yellow;
+}
+
+.high-priority {
+    background-color: lightcoral;
+}
+
+.side h2 {
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.side button {
+    margin-bottom: 20px;
+}
+
+.delete {
+    margin-left: auto;
+}
